@@ -1,8 +1,10 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Container, Row, Col, Card, Button, Alert } from 'react-bootstrap';
 
 const EligibilityResults = () => {
     const location = useLocation();
+    const navigate = useNavigate();
     const { criteria } = location.state || {};
 
     // Example data for jobs
@@ -19,23 +21,48 @@ const EligibilityResults = () => {
         return meetsCgpa && meetsLocation && meetsSkills;
     });
 
+    const handleRefineSearch = () => {
+        navigate('/eligibility');
+    };
+
     return (
-        <div style={{ padding: '20px' }}>
-            <h1>Eligibility Results</h1>
+        <Container className="py-5">
+            <h1 className="text-center mb-4">Eligibility Results</h1>
+
+            {/* Show the filters applied */}
+            <div className="mb-4">
+                <h5>Filters Applied:</h5>
+                <p><strong>CGPA:</strong> {criteria.cgpa || 'Not specified'}</p>
+                <p><strong>Skills:</strong> {criteria.skills || 'Not specified'}</p>
+                <p><strong>Location:</strong> {criteria.location || 'Not specified'}</p>
+            </div>
+
             {filteredJobs.length > 0 ? (
-                <ul>
+                <Row className="g-4">
                     {filteredJobs.map((job) => (
-                        <li key={job.id} style={{ marginBottom: '10px' }}>
-                            <strong>{job.title}</strong> at {job.company} - Location: {job.location}
-                            <p>Required CGPA: {job.cgpa}</p>
-                            <p>Skills: {job.skills.join(', ')}</p>
-                        </li>
+                        <Col key={job.id} md={4}>
+                            <Card className="shadow-sm border-0 rounded-3">
+                                <Card.Body>
+                                    <Card.Title>{job.title}</Card.Title>
+                                    <Card.Subtitle className="mb-2 text-muted">{job.company}</Card.Subtitle>
+                                    <Card.Text><strong>Location:</strong> {job.location}</Card.Text>
+                                    <Card.Text><strong>Required CGPA:</strong> {job.cgpa}</Card.Text>
+                                    <Card.Text><strong>Skills:</strong> {job.skills.join(', ')}</Card.Text>
+                                    <Button variant="primary" onClick={() => navigate(`/jobs/${job.id}`)} className="w-100">
+                                        View Details
+                                    </Button>
+                                </Card.Body>
+                            </Card>
+                        </Col>
                     ))}
-                </ul>
+                </Row>
             ) : (
-                <p>No jobs match your criteria.</p>
+                <Alert variant="warning" className="text-center">
+                    No jobs match your criteria.
+                    <Button variant="link" onClick={handleRefineSearch}>Refine Search</Button>
+                </Alert>
             )}
-        </div>
+        </Container>
     );
 };
 

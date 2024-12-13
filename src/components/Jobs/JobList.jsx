@@ -1,15 +1,16 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button, Badge } from 'react-bootstrap';
+import { FaMapMarkerAlt, FaRegFileAlt } from 'react-icons/fa';
 
 const JobList = () => {
     const navigate = useNavigate();
 
-    // Example job data
+    // Example job data with additional info
     const jobs = [
-        { id: 1, title: 'Software Engineer', company: 'TechCorp', location: 'Bangalore', description: 'Build scalable software solutions.' },
-        { id: 2, title: 'Data Scientist', company: 'DataCorp', location: 'Delhi', description: 'Analyze complex datasets for insights.' },
-        { id: 3, title: 'Frontend Developer', company: 'WebWorks', location: 'Remote', description: 'Create responsive web interfaces.' },
+        { id: 1, title: 'Software Engineer', company: 'TechCorp', location: 'Bangalore', description: 'Build scalable software solutions.', jobType: 'Full-time' },
+        { id: 2, title: 'Data Scientist', company: 'DataCorp', location: 'Delhi', description: 'Analyze complex datasets for insights.', jobType: 'Full-time' },
+        { id: 3, title: 'Frontend Developer', company: 'WebWorks', location: 'Remote', description: 'Create responsive web interfaces.', jobType: 'Contract' },
     ];
 
     const handleViewDetails = (id) => {
@@ -23,35 +24,40 @@ const JobList = () => {
                 {jobs.map((job) => (
                     <Col md={4} key={job.id}>
                         <Card
+                            className="h-100 shadow-sm rounded-lg border-0"
                             style={{
-                                borderRadius: '15px',
-                                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
                                 transition: 'transform 0.3s ease',
+                                overflow: 'hidden',
                             }}
                             onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.05)')}
                             onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
                         >
-                            <Card.Body>
-                                <Card.Title className="fw-bold">{job.title}</Card.Title>
+                            <Card.Body className="d-flex flex-column">
+                                <Card.Title className="fw-bold mb-2 text-dark">{job.title}</Card.Title>
                                 <Card.Subtitle className="mb-2 text-muted">{job.company}</Card.Subtitle>
-                                <Card.Text>
-                                    <strong>Location:</strong> {job.location}
+                                <Card.Text className="text-muted">
+                                    <FaMapMarkerAlt className="me-2" />
+                                    {job.location}
                                 </Card.Text>
-                                <Card.Text>
+                                <Card.Text className="text-muted mb-3" style={{ fontSize: '0.9rem' }}>
                                     {job.description.length > 50
-                                        ? job.description.substring(0, 50) + '...'
+                                        ? job.description.substring(0, 100) + '...'
                                         : job.description}
                                 </Card.Text>
-                                <Button
-                                    variant="primary"
-                                    onClick={() => handleViewDetails(job.id)}
-                                    style={{
-                                        fontWeight: '600',
-                                        borderRadius: '50px',
-                                    }}
-                                >
-                                    View Details
-                                </Button>
+                                <div className="d-flex justify-content-between align-items-center mt-auto">
+                                    <Badge bg="info" className="text-uppercase">{job.jobType}</Badge>
+                                    <Button
+                                        variant="primary"
+                                        onClick={() => handleViewDetails(job.id)}
+                                        style={{
+                                            fontWeight: '600',
+                                            borderRadius: '50px',
+                                        }}
+                                    >
+                                        <FaRegFileAlt className="me-2" />
+                                        View Details
+                                    </Button>
+                                </div>
                             </Card.Body>
                         </Card>
                     </Col>

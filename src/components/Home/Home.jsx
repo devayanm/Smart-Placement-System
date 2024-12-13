@@ -1,28 +1,29 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button, Container, Row, Col, Card, Carousel } from "react-bootstrap";
+import { Button, Container, Row, Col, Card, Carousel, Jumbotron } from "react-bootstrap";
+import { FaSearch, FaRegHandshake, FaRegUser, FaBriefcase, FaGraduationCap } from "react-icons/fa"; // Additional icons for variety
 
 const Home = () => {
   return (
     <div>
-      {/* Hero Section */}
+      {/* Hero Section with Background Image */}
       <div
         style={{
           height: "100vh",
-          // backgroundImage: "url('https://source.unsplash.com/1920x1080/?tech,team')",
-          // backgroundSize: "cover",
-          // backgroundPosition: "center",
-          backgroundColor: "#f8f9fa", 
+          backgroundImage: "url('https://source.unsplash.com/1920x1080/?tech,team')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          color: "black",
+          color: "white",
           textAlign: "center",
+          padding: "0 20px",
         }}
       >
         <Container>
-          <h1 className="display-4 fw-bold">Revolutionizing Campus Placements</h1>
-          <p className="lead">
+          <h1 className="display-4 fw-bold text-shadow">Revolutionizing Campus Placements</h1>
+          <p className="lead text-shadow">
             Discover opportunities tailored to your skills. Simplify your career journey.
           </p>
           <div className="mt-4">
@@ -59,9 +60,11 @@ const Home = () => {
         </Row>
         <Row className="g-4">
           {[
-            { title: "Intelligent Matching", icon: "bi-lightning", text: "Get jobs suited to your skills and goals." },
-            { title: "Profile Management", icon: "bi-person-badge", text: "Maintain an up-to-date professional profile." },
-            { title: "Recruiter Tools", icon: "bi-briefcase", text: "Enable recruiters to filter candidates efficiently." },
+            { title: "Intelligent Matching", icon: <FaSearch size={40} color="#007bff" />, text: "Get jobs suited to your skills and goals." },
+            { title: "Profile Management", icon: <FaRegUser size={40} color="#007bff" />, text: "Maintain an up-to-date professional profile." },
+            { title: "Recruiter Tools", icon: <FaBriefcase size={40} color="#007bff" />, text: "Enable recruiters to filter candidates efficiently." },
+            { title: "Skill Development", icon: <FaGraduationCap size={40} color="#007bff" />, text: "Access resources to enhance your skills." },
+            { title: "Job Notifications", icon: <FaRegHandshake size={40} color="#007bff" />, text: "Stay updated on the latest job opportunities." },
           ].map((feature, idx) => (
             <Col md={4} key={idx} className="d-flex justify-content-center">
               <Card
@@ -75,9 +78,7 @@ const Home = () => {
                 onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
               >
                 <Card.Body className="text-center">
-                  <div className="mb-3">
-                    <i className={`bi ${feature.icon}`} style={{ fontSize: "2rem", color: "#007bff" }}></i>
-                  </div>
+                  <div className="mb-3">{feature.icon}</div>
                   <Card.Title className="fw-bold">{feature.title}</Card.Title>
                   <Card.Text>{feature.text}</Card.Text>
                 </Card.Body>
@@ -97,21 +98,17 @@ const Home = () => {
             </Col>
           </Row>
           <Row className="justify-content-center">
-            <Col md={3} className="text-center">
-              <i className="bi bi-pencil" style={{ fontSize: "3rem", color: "#007bff" }}></i>
-              <h5 className="fw-bold mt-3">1. Create a Profile</h5>
-              <p>Start by adding your skills, experience, and career goals.</p>
-            </Col>
-            <Col md={3} className="text-center">
-              <i className="bi bi-search" style={{ fontSize: "3rem", color: "#007bff" }}></i>
-              <h5 className="fw-bold mt-3">2. Find Jobs</h5>
-              <p>Search and apply for job openings that suit your preferences.</p>
-            </Col>
-            <Col md={3} className="text-center">
-              <i className="bi bi-check-circle" style={{ fontSize: "3rem", color: "#007bff" }}></i>
-              <h5 className="fw-bold mt-3">3. Get Hired</h5>
-              <p>Track your applications and secure your dream role.</p>
-            </Col>
+            {[
+              { icon: <FaRegUser size={40} color="#007bff" />, title: "1. Create a Profile", description: "Start by adding your skills, experience, and career goals." },
+              { icon: <FaSearch size={40} color="#007bff" />, title: "2. Find Jobs", description: "Search and apply for job openings that suit your preferences." },
+              { icon: <FaBriefcase size={40} color="#007bff" />, title: "3. Get Hired", description: "Track your applications and secure your dream role." },
+            ].map((step, idx) => (
+              <Col md={3} key={idx} className="text-center mb-4">
+                {step.icon}
+                <h5 className="fw-bold mt-3">{step.title}</h5>
+                <p>{step.description}</p>
+              </Col>
+            ))}
           </Row>
         </Container>
       </Container>
@@ -141,6 +138,21 @@ const Home = () => {
           ))}
         </Carousel>
       </Container>
+
+      {/* Call to Action Section */}
+      <div className="text-center py-5" style={{ backgroundColor: "#007bff", color: "white" }}>
+        <h2 className="fw-bold">Ready to take your career to the next level?</h2>
+        <p>Join our platform today and start discovering new opportunities.</p>
+        <Button
+          variant="light"
+          size="lg"
+          as={Link}
+          to="/register"
+          style={{ fontWeight: "600", borderRadius: "50px" }}
+        >
+          Join Now
+        </Button>
+      </div>
     </div>
   );
 };

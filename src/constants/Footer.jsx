@@ -7,7 +7,7 @@ const Footer = () => {
       <Container>
         <Row className="text-center">
           <Col>
-            <p>&copy; 2024 Smart Placement and Job Matching System. All rights reserved.</p>
+            <p>&copy; 2024 JobConnect+. All rights reserved.</p>
           </Col>
         </Row>
       </Container>

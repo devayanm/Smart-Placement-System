@@ -22,7 +22,7 @@ const AppNavbar = () => {
     <Navbar bg="dark" variant="dark" expand="lg" className="py-3">
       <Container>
         <Navbar.Brand as={Link} to="/" className="fw-bold">
-          Smart Placement System
+          JobConnect+
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbar-nav" />
         <Navbar.Collapse id="navbar-nav">
@@ -66,7 +66,7 @@ const AppNavbar = () => {
           <Nav className="ms-3">
             {isLoggedIn ? (
               <>
-                <Nav.Link as={Link} to="/admin">
+                <Nav.Link as={Link} to="/admin/dashboard">
                   Admin Panel
                 </Nav.Link>
                 <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
